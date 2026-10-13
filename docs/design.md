@@ -15,16 +15,16 @@ a2- for simplicity, we are keeping the value data types to Strings.Clustering,tr
 - `redis-cli` sends `PING` and `redis-benchmark` uses `PING`, `SET` and `GET`. Which of those do you need?
 - Unknown command: what is the reply?
 
-a1- GET,SET,PING,EXPIRE,TTL,DEL with replies as +PONG,+OK,$digits,:n,$-1,:1,:secs with -ERR
+a1- GET,SET,PING,EXPIRE,TTL,DEL with replies as +PONG,+OK,$digits,:n,$-1,:1,:secs with -ERR. if a user get queries a missing key then they are replied by a $-1 because this reply can never be mapped to a real key. del return the number of keys that were deleted with :n
 a2- redis benchmark simulates many clients doing many requests so we need PING,SET and GET.
-a1- -ERR unkown command
+a1- -ERR unkown command with the message of what went wrong. with command casing mismatches handled by converting everything to upper and keys being sensitive as they are the users data and different casing might mean different things to them.
 
 ## 3. Data model
 - What is the main structure that holds the data? What are its key and value types?
 - What extra information does each entry need besides its value? (Expiry? LRU links? Size?) Where does it live: in the value object, or in separate structures?
 
 a1- hashmap with string and an obj. the key cant be an array of bytes because it cant be a hasmap key cause two identical byte arrays would be two different keys.
-a2- the obj can store value, expiry,prev/next for our lru cache links, size for memory accounting.
+a2- the obj can store value, expiry(being absolute time so we wont have to update this param with each second),prev/next for our lru cache links, size for memory accounting.
 
 ## 4. Expiry (TTL)
 - Lazy: on which operations do you check expiry?
