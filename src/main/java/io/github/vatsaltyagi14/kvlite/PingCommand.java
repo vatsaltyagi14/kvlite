@@ -4,11 +4,10 @@ import java.util.List;
 
 public class PingCommand implements Command {
     @Override
-    public String execute(List<String> args, Store store){
-        if(args.isEmpty()){
+    public String execute(List<String> args, Store store) {
+        if (args.isEmpty()) {
             return "+PONG";
-        }
-        else{
+        } else {
             return "-ERR wrong number of arguments for 'ping' command";
         }
     }
