@@ -24,7 +24,7 @@ public class CommandDispatcher {
             String name = parts.get(0);
             Command command = commands.get(name.toUpperCase());
             if (command == null) {
-                return "-ERR unknown command" + " " + name;
+                return "-ERR unknown command" + " " + "'" + name+"'" ;
             } else {
                 List<String> argsList = parts.subList(1, parts.size());
                 return command.execute(argsList, store);

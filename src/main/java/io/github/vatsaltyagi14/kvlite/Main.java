@@ -9,7 +9,7 @@ public class Main {
         CommandDispatcher dispatcher = new CommandDispatcher(store);
 
         String[] lines = {"PING", "SET name vatsal", "GET name", "GET age", "SET name tyagi",
-                "get name"};
+                "get name", "DEL name nope", "get", "foo", "get name"};
 
         for (String line : lines) {
             List<String> parts = List.of(line.split(" "));
